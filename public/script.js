@@ -16,3 +16,4 @@ signUp[0].addEventListener('click', (e)=>{
     window.location.href = `/register?email=${email}`;
     }
 })
+
