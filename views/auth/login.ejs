@@ -1,5 +1,11 @@
 <div class="container">
-    <form method="POST" action="">
+  <% if (locals.message) {%>
+    <div class="alert alert-danger" role="alert">
+      <%= message %>
+    </div>
+    <% }%>
+
+    <form method="POST" action="/login">
       <div class="form-group">
         <h3 class="text-center">Login</h3>
         <label for="exampleInputEmail1">Username</label>
@@ -12,4 +18,6 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+  </div>
   </div>

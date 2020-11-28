@@ -1,4 +1,5 @@
 const { request } = require("express");
+const fetch = require("node-fetch");
 let database = require("../database");
 
 let remindersController = {
@@ -23,6 +24,13 @@ let remindersController = {
   },
   
   create: (req, res) => {
+
+    // fetch(`https://api.unsplash.com/search/photos/?client_id=A_ophHr52gAI4iPOMNGtznx4jgOfcA9DASTV8_aKYU8&query=${req.body.image}`)
+    // .then((response)=>console.log())
+    // .catch((err)=>{
+    //   console.log(err)
+    // })
+
     let reminder = {
       id: database[req.session.user].reminders.length + 1,
       title: req.body.title,

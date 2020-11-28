@@ -7,9 +7,9 @@ const reminderController = require("./controller/reminder_controller");
 const authController = require("./controller/auth_controller");
 let {users} = require("./userdb");
 const {authorization} = require("./middleware/auth");
-const { cpuUsage, nextTick } = require("process");
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public/images")))
 
 app.use(express.urlencoded({ extended: false }));
 

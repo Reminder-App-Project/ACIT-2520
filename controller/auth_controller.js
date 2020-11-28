@@ -13,29 +13,25 @@ let authController = {
   },
 
   register: (req, res) => {
-    let email = req.url.slice(req.url.indexOf('=') + 1)
+    if (req.url.includes('email')){
+    let email = req.url.substr(req.url.indexOf('=')+1, req.url.length)
     res.render('auth/register', { email: email, display: 'none' })
+    }
+    else{
+      res.render('auth/register', { email: "", display: 'none' })
+    }
   },
 
   loginSubmit: (req, res) => {
-    username = req.body.username;
-    password = req.body.password;
-
-    for (let user of Object.keys(users)) {
-      if (user == username) {
-        if (users[user]['username'] == username && users[user]['password'] == password) {
-          req.session['user'] = username
-          response.redirect('/reminders') 
-        }
-        else {
-          console.log("Invalid credentials")
-        }
-      }
-      else {
-        return console.log('No user exists')
-      }
+    if (users[req.body.username] && users[req.body.username].password === req.body.password) {
+      req.session['user']= req.body.username;
+      res.redirect('/reminders');
+    } else {
+      res.render('auth/login', {message: "Invalid Match",  display: 'none' });
     }
-  },
+    
+    
+},
 
   registerSubmit: (req, res) => {
     email = req.body.email
@@ -58,10 +54,8 @@ let authController = {
 
   logout: (req, res) => {
     req.session = null
-    res.redirect('/login')
+    res.redirect('/')
   }
 }
-
-
 
 module.exports = authController;

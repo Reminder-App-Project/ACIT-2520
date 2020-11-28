@@ -1,5 +1,9 @@
 <div class="container">
-  <p style="font-size: 25px; margin: auto; width: max-content;">You are logged in as <%= user %></p>
+  <% if (locals.user) {%>
+  <div class="alert alert-success">
+    You are logged in as <%= user %>
+  </div>
+<% } %> 
   <h1 class="page-header">Reminders</h1>
   
 
