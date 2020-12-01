@@ -20,8 +20,14 @@
     <% } else { %>
     <% if (locals.display) { %>
       <a class="nav-item nav-link" style="display: <%= display %>" href="/reminder/new">Create</a>
+      <form method="POST" action="/logout">
+        <button class="nav-item nav-link" style="display: <%= display %>">Logout</button>
+      </form>
     <% } else {%>
       <a class="nav-item nav-link" href="/reminder/new">Create</a>
+      <form method="POST" action="/logout">
+        <button class="btn btn-link" style="">Logout</button>
+      <form method="POST" action="/logout"></form>
     <% }%>
     <% } %>
     </div>
