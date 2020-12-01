@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose your Image</title>
+    <style>
+        img:hover {
+            border-radius: 10px;
+            transition: all 500ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="text-align: center; border: 1px solid red; margin-top: 10px; font-style: italic;">Select your Image</h2>
+    <div class="wrap" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; padding: 5em;">
+        <% results.forEach((result)=>{ %>
+        <img src="<%= result.urls.small %> ">
+        <% }) %>
+    </div>
+
+    <script>
+        let wrap = document.getElementsByClassName('wrap')[0];
+        wrap.addEventListener('click', (e) => {
+            const image = e.target.src
+            const url = `http://localhost:3001/reminders?${image}`;  
+            window.location.href = url 
+        });
+    </script>
+</body>
+
+</html>
