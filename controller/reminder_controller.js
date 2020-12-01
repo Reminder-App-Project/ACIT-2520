@@ -4,7 +4,7 @@ let database = require("../database");
 
 let remindersController = {
   list: (req, res) => {
-    res.render('reminder/index', { reminders: database[req.session.user].reminders, condition_list: 'active', condition_new: '', user:req.session.user})
+    res.render('reminder/index', { reminders: database[req.session.user].reminders, condition_list: 'active', condition_new: '', user: req.session.user })
   },
 
   new: (req, res) => {
@@ -22,26 +22,35 @@ let remindersController = {
       res.render('reminder/index', { reminders: database[req.session.user].reminders })
     }
   },
-  
-  create: (req, res) => {
 
-    // fetch(`https://api.unsplash.com/search/photos/?client_id=A_ophHr52gAI4iPOMNGtznx4jgOfcA9DASTV8_aKYU8&query=${req.body.image}`)
-    // .then((response)=>console.log())
-    // .catch((err)=>{
-    //   console.log(err)
-    // })
-    let reminder = {
-      id: database[req.session.user].reminders.length + 1,
-      title: req.body.title,
-      description: req.body.description,
-      completed: false,
-      tags: req.body.tags.split(","),
-      subtasks: req.body.subtasks.split(",")
-    }
-    database[req.session.user].reminders.push(reminder);
-    console.log(reminder)
-    console.log(database)
-    res.redirect('/reminders');
+  create: (req, res) => {
+    fetch(`https://api.unsplash.com/search/photos/?client_id=A_ophHr52gAI4iPOMNGtznx4jgOfcA9DASTV8_aKYU8&query=${req.body.image}`)
+      .then((response) => {
+        response.json()
+          .then((data) => {
+            return data.results
+          })
+          .then((data) => {
+            let reminder = {
+              id: database[req.session.user].reminders.length + 1,
+              title: req.body.title,
+              description: req.body.description,
+              completed: false,
+              tags: req.body.tags.split(","),
+              subtasks: req.body.subtasks.split(","),
+              image: data[0].urls.small
+            }
+            database[req.session.user].reminders.push(reminder);
+            console.log(reminder)
+            console.log(database)
+            res.redirect('/reminders');
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }).catch((err) => {
+        console.log(err)
+      })
   },
 
   edit: (req, res) => {

@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+app = express();
 const path = require("path");
 const ejsLayouts = require("express-ejs-layouts");
 const cookieSession = require("cookie-session");
